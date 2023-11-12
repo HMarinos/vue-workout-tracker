@@ -82,4 +82,16 @@ export default {
     users: (state) => state.users,
     hasUsers: (state) => state.users && state.users.length > 0,
   },
+  mutations: {
+    addWorkout(state, payload) {
+      const user = state.users.find((u) => u.id === payload.userId);
+
+      if (user) {
+        if (!user.workouts[payload.day]) {
+          Vue.set(user.workouts, payload.day, []);
+        }
+        user.workouts[payload.day].push(payload.newWorkout);
+      }
+    },
+  },
 };
